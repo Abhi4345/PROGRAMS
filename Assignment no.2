@@ -1,0 +1,288 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct abc
+{
+
+    char name[20];
+
+    int prn;
+
+    struct abc *prv;
+
+    struct abc *next;
+};
+
+void inserts(struct abc *head)
+{
+
+    struct abc *new;
+
+    new = (struct abc *)malloc(sizeof(struct abc));
+
+    printf("\nEnter Name and PRN of Secretary\n ");
+
+    scanf(" %s", new->name);
+
+    scanf("%d", &new->prn);
+
+    new->prv = head;
+
+    head->next = new;
+
+    new->next = NULL;
+}
+
+void
+
+insertion(struct abc *head)
+{
+
+    struct abc *new;
+
+    new = (struct abc *)malloc(sizeof(struct abc));
+
+    printf("Enter Name and PRN\n");
+
+    scanf(" %s", new->name);
+
+    scanf("%d", &new->prn);
+
+    new->next = NULL;
+
+    new->prv = NULL;
+
+    new->next = head->next;
+
+    new->next->prv = new;
+
+    head->next = new;
+
+    new->prv = head;
+}
+
+void
+
+Display(struct abc *head)
+{
+
+    struct abc *temp;
+
+    temp = head;
+
+    int i = 1;
+
+    while (temp != NULL)
+
+    {
+
+        printf("%d]Name:\t %s \n PRN:\t %d", i, temp->name, temp->prn);
+
+        temp = temp->next;
+
+        i++;
+
+        printf("\n");
+    }
+}
+
+void DeleteS(struct abc *head)
+{
+
+    struct abc *temp;
+
+    temp = head;
+
+    while (temp->next != NULL)
+
+    {
+
+        temp = temp->next;
+    }
+
+    temp->prv->next = NULL;
+
+    free(temp);
+}
+
+void DeleteP(struct abc *head)
+{
+
+    struct abc *temp;
+
+    temp = head;
+
+    temp->next->prv = NULL;
+
+    head = temp->next;
+
+    free(temp);
+}
+void
+
+DeleteM(struct abc *head)
+{
+
+    struct abc *temp;
+
+    temp = head;
+
+    int r;
+
+    printf("Enter members PRN which you want to delete\n");
+
+    scanf("%d", &r);
+
+    while (temp->prn != r)
+
+    {
+
+        temp = temp->next;
+    }
+
+    temp->next->prv = temp->prv;
+
+    temp->prv->next = temp->next;
+}
+
+void TotalM(struct abc *head)
+{
+
+    struct abc *temp;
+
+    temp = head;
+
+    int i = 1;
+
+    while (temp->next != NULL)
+
+    {
+
+        i++;
+
+        temp = temp->next;
+    }
+
+    printf("Total Members are:%d\n", i);
+}
+
+void DisplayRev(struct abc *head)
+{
+
+    struct abc *temp;
+    temp = head;
+
+    while (temp->next != NULL)
+    {
+
+        temp = temp->next;
+    }
+
+    int i = 1;
+    struct abc *q;
+    q = temp;
+
+    while (q != NULL)
+
+    {
+
+        printf("%d]Name:\t %s \n PRN:\t %d", i, q->name, q->prn);
+
+        q = q->prv;
+
+        i++;
+
+        printf("\n");
+    }
+}
+
+int main()
+{
+
+    struct abc *head;
+
+    head = (struct abc *)malloc(sizeof(struct abc));
+
+    printf("Enter Name and PRN of President\n");
+
+    scanf(" %s", head->name);
+
+    scanf("%d", &head->prn);
+
+    head->prv = NULL;
+
+    head->next = NULL;
+
+    inserts(head);
+
+    int ch;
+
+    do
+
+    {
+
+        printf("\n 1.Insert Member\n 2.Delete Secretary\n 3.Display Members\n 4.Delete President\n 5.Delete Member\n 6.Total Members\n 7.Display in Reverse Order\n 8.Exit\n");
+
+        scanf("%d", &ch);
+
+        printf("\n");
+
+        switch (ch)
+
+        {
+
+        case 1:
+
+            insertion(head);
+
+            break;
+
+        case 2:
+
+            DeleteS(head);
+
+            break;
+
+        case 3:
+
+            Display(head);
+
+            break;
+
+        case 4:
+
+            DeleteP(head);
+
+            break;
+
+        case 5:
+
+            DeleteM(head);
+
+            break;
+
+        case 6:
+
+            TotalM(head);
+
+            break;
+
+        case 7:
+
+            DisplayRev(head);
+
+            break;
+
+        default:
+
+            printf("Enter between 1 to 8\n");
+
+            break;
+        }
+
+    }
+
+    while (ch != 8);
+
+    return 0;
+}
