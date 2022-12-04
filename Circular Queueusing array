@@ -1,0 +1,93 @@
+
+#include <stdio.h>
+#define N 5
+int queue[N];
+int front = -1;
+int rear = -1;
+
+void main()
+{
+    int choice, y;
+    do
+    {
+        printf("------------Welcome to Queue Operations--------------");
+        printf("\n 1.Enqueue");
+        printf("\n 2.Dequeue");
+        printf("\n 3.Display");
+        printf("\nEnter your choice : ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            Enqueue();
+            break;
+        case 2:
+            Dequeue();
+            break;
+        case 3:
+            Display();
+            break;
+        }
+        printf("\nDo you want to continue ((0)) ((1))");
+        scanf("%d", &y);
+    } while (y == 1);
+}
+void Enqueue()
+{
+    int data;
+    printf("\nEnter Data : ");
+    scanf("%d", &data);
+    if (front == -1 && rear == -1)
+    {
+        front = 0;
+        rear = 0;
+        queue[rear] = data;
+    }
+    else if ((rear = (rear + 1) % N == front))
+    {
+        printf("\nOverflow");
+    }
+    else
+    {
+        rear = (rear + 1) % N;
+        queue[rear] = data;
+    }
+}
+void Dequeue()
+{
+
+    if (front == -1 && rear == -1)
+    {
+        printf("\nUnderflow");
+    }
+    else if (front == rear)
+    {
+        printf("The dequeued element is : %d", queue[front]);
+        front = -1;
+        rear = -1;
+    }
+    else
+    {
+        printf("The dequeued element is : %d", queue[front]);
+        front = (front + 1) % N;
+    }
+}
+
+void Display()
+{
+    int i = front;
+    if (front == -1 && rear == -1)
+    {
+        printf("\nQueue is Empty");
+    }
+    else
+    {
+        printf("\nElements in a Queue are : ");
+        while (i != rear)
+        {
+            printf("\n%d", queue[i]);
+            i = (i + 1) % N;
+        }
+        printf("%d", queue[rear]);
+    }
+}
