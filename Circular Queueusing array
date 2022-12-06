@@ -85,9 +85,9 @@ void Display()
         printf("\nElements in a Queue are : ");
         while (i != rear)
         {
-            printf("\n%d", queue[i]);
+            printf("\n%d\n", queue[i]);
             i = (i + 1) % N;
         }
-        printf("%d", queue[rear]);
+        printf("\n%d\n", queue[rear]);
     }
 }
